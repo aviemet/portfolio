@@ -2,9 +2,9 @@ import * as React from 'react'
 import { Link } from 'gatsby'
 
 interface LayoutProps {
-  location: Location
-  title: string
-  children?: React.ReactNode
+	location: Location
+	title: string
+	children?: React.ReactNode
 }
 
 const Layout = ({ children, location, title }: LayoutProps) => {
@@ -28,7 +28,7 @@ const Layout = ({ children, location, title }: LayoutProps) => {
 
 	return (
 		<div className="global-wrapper" data-is-root-path={ isRootPath }>
-			<header className="global-header">{ header }</header>
+			{ /* <header>{ header }</header> */ }
 			<main>{ children }</main>
 			<footer>
         © { new Date().getFullYear() }, Built with

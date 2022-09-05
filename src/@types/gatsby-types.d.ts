@@ -3444,10 +3444,10 @@ type WebPOptions = {
   readonly quality: InputMaybe<Scalars['Int']>;
 };
 
-type BioQueryQueryVariables = Exact<{ [key: string]: never; }>;
+type BioQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type BioQueryQuery = { readonly site: { readonly siteMetadata: { readonly author: { readonly name: string | null, readonly summary: string | null } | null, readonly social: { readonly twitter: string | null } | null } | null } | null };
+type BioQuery = { readonly site: { readonly siteMetadata: { readonly author: { readonly name: string | null, readonly summary: string | null } | null, readonly social: { readonly twitter: string | null } | null } | null } | null };
 
 type BlogIndexQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3493,6 +3493,11 @@ type NotFoundPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type NotFoundPageQuery = { readonly site: { readonly siteMetadata: { readonly title: string | null } | null } | null };
+
+type SiteMetadataQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type SiteMetadataQuery = { readonly site: { readonly siteMetadata: { readonly title: string | null, readonly description: string | null, readonly social: { readonly twitter: string | null } | null } | null } | null };
 
 
 }

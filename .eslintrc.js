@@ -21,12 +21,21 @@ module.exports = {
 	},
 	plugins: ['react', '@typescript-eslint', 'import'],
 	rules: {
-		indent: 'off',
+		'indent': 'off',
 		'@typescript-eslint/indent': ['error', 'tab', {
-			SwitchCase: 1,
-			VariableDeclarator: 'first',
-			MemberExpression: 1,
-			ArrayExpression: 1
+			'SwitchCase': 1,
+			'VariableDeclarator': 'first',
+			'MemberExpression': 1,
+			'ArrayExpression': 1
+		}],
+		'@typescript-eslint/member-delimiter-style': ['error', {
+			multiline: {
+				delimiter: 'none'
+			},
+			singleline: {
+				delimiter: 'comma'
+			},
+			multilineDetection: 'brackets'
 		}],
 		'@typescript-eslint/member-delimiter-style': ['error', {
 			multiline: {
@@ -38,8 +47,8 @@ module.exports = {
 			multilineDetection: 'brackets'
 		}],
 		'linebreak-style': ['error', 'unix'],
-		quotes: ['error', 'single'],
-		semi: ['error', 'never'],
+		'quotes': ['error', 'single'],
+		'semi': ['error', 'never'],
 		'no-unused-vars': ['warn', {
 			vars: 'all',
 			args: 'none'
@@ -63,40 +72,36 @@ module.exports = {
 		}],
 		'react/display-name': ['off'],
 		'react/prop-types': 0,
-		eqeqeq: 'error',
+		'eqeqeq': 'error',
 		'no-console': 'warn',
 		'eol-last': ['error', 'always']
 	},
-  overrides: [
-    {
-      files: ['*.ts', '*.tsx'],
-      processor: '@graphql-eslint/graphql',
-      parser: "@typescript-eslint/parser",
-      extends: [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended"
-      ],
-      env: {
-        es6: true,
-      },
-    },
-    {
-      files: ['*.graphql'],
-      parser: '@graphql-eslint/eslint-plugin',
-      plugins: ['@graphql-eslint'],
-      rules: {
-        '@graphql-eslint/no-anonymous-operations': 'error',
-        '@graphql-eslint/naming-convention': [
-          'error',
-          {
-            OperationDefinition: {
-              style: 'PascalCase',
-              forbiddenPrefixes: ['Query', 'Mutation', 'Subscription', 'Get'],
-              forbiddenSuffixes: ['Query', 'Mutation', 'Subscription'],
-            },
-          },
-        ],
-      },
-    },
-  ],
+	overrides: [
+		{
+			files: ['*.ts', '*.tsx'],
+			processor: '@graphql-eslint/graphql',
+		},
+		{
+			files: ['*.graphql'],
+			parser: '@graphql-eslint/eslint-plugin',
+			plugins: ['@graphql-eslint'],
+			rules: {
+				'@graphql-eslint/no-anonymous-operations': 'error',
+				'@graphql-eslint/naming-convention': [
+					'error',
+					{
+						OperationDefinition: {
+							style: 'PascalCase',
+							forbiddenPrefixes: ['Query', 'Mutation', 'Subscription', 'Get'],
+							forbiddenSuffixes: ['Query', 'Mutation', 'Subscription'],
+						},
+					},
+				],
+				'prettier/prettier': 'off',
+				'eol-last': 'off',
+				'no-trailing-spaces': 'off',
+				'indent': ['error', 'tab']
+			},
+		},
+	],
 }

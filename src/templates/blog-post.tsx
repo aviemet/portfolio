@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { Link, graphql, type PageProps } from 'gatsby'
+import { Link, graphql, type PageProps, type HeadProps } from 'gatsby'
 
-import Bio from '../components/Bio'
-import Layout from '../components/Layout'
-import Seo from '../components/Seo'
+import Bio from 'components/Bio'
+import Layout from 'components/Layout'
+import SEO from 'components/SEO'
 
 const BlogPostTemplate = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) => {
 	const post = data.markdownRemark
@@ -14,10 +14,6 @@ const BlogPostTemplate = ({ data, location }: PageProps<Queries.BlogPostBySlugQu
 
 	return (
 		<Layout location={ location } title={ siteTitle }>
-			<Seo
-				title={ post.frontmatter?.title || '' }
-				description={ post.frontmatter?.description || post.excerpt || '' }
-			/>
 			<article
 				className="blog-post"
 				itemScope
@@ -107,3 +103,8 @@ export const pageQuery = graphql`
     }
   }
 `
+
+export const Head = ({ data }: HeadProps<Queries.BlogPostBySlugQuery>) => <SEO
+	title={ data.markdownRemark?.frontmatter?.title || '' }
+	description={ data.markdownRemark?.frontmatter?.description || data.markdownRemark?.excerpt || '' }
+/>

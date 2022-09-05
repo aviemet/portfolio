@@ -1,64 +1,84 @@
-import * as React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, graphql, type PageProps } from 'gatsby'
+import { Box, Transition, Title, Container } from '@mantine/core'
 
-import Bio from 'components/Bio'
 import Layout from 'components/Layout'
-import Seo from 'components/Seo'
+import SEO from 'components/SEO'
 
 const BlogIndex = ({ data, location }: PageProps<Queries.BlogIndexQuery>) => {
+	const [showSubHeading, setShowSubHeading] = useState(false)
+	const [heroheight, setHeroHeight] = useState('100vh')
+
 	const siteTitle = data.site?.siteMetadata?.title || 'Title'
 	const posts = data.allMarkdownRemark.nodes
 
-	if (posts.length === 0) {
-		return (
-			<Layout location={ location } title={ siteTitle }>
-				<Seo title="All posts" />
-				<Bio />
-				<p>
-          No blog posts found. Add markdown posts to &quot;content/blog&quot; (or the
-          directory you specified for the &quot;gatsby-source-filesystem&quot; plugin in
-          gatsby-config.js).
-				</p>
-			</Layout>
-		)
-	}
+	useEffect(() => {
+		setTimeout(() => {
+			setShowSubHeading(true)
+
+			setTimeout(() => {
+				setHeroHeight('80vh')
+			}, 500)
+
+		}, 1000)
+	}, [])
 
 	return (
 		<Layout location={ location } title={ siteTitle }>
-			<Seo title="All posts" />
-			<Bio />
-			<ol style={ { listStyle: 'none' } }>
-				{ posts.map(post => {
-					const title = post.frontmatter?.title || post.fields?.slug
+			<Box sx={ {
+				width: '100vw',
+				height: heroheight,
+				display: 'flex',
+				flexDirection: 'column',
+				justifyContent: 'center',
+				alignItems: 'center',
+				transition: 'height 500ms ease-in-out'
+			} }>
+				<Title order={ 2 }>Oh, you found my site...</Title>
+				<Box>&nbsp;
+					<Transition mounted={ showSubHeading } transition="fade" duration={ 1000 } timingFunction="ease">
+						{ styles => <span style={ styles }>Now what?</span> }
+					</Transition>
+				</Box>
+			</Box>
 
-					return (
-						<li key={ post.fields?.slug }>
-							<article
-								className="post-list-item"
-								itemScope
-								itemType="http://schema.org/Article"
-							>
-								<header>
-									<h2>
-										{ post.fields?.slug && <Link to={ post.fields.slug } itemProp="url">
-											<span itemProp="headline">{ title }</span>
-										</Link> }
-									</h2>
-									<small>{ post.frontmatter?.date }</small>
-								</header>
-								<section>
-									<p
-										dangerouslySetInnerHTML={ {
-											__html: post.frontmatter?.description || post.excerpt || '',
-										} }
-										itemProp="description"
-									/>
-								</section>
-							</article>
-						</li>
-					)
-				}) }
-			</ol>
+			<Container>
+				<Box>
+					<Title order={ 3 }>Well, I guess you could look at some things I built</Title>
+				</Box>
+
+				<ol style={ { listStyle: 'none' } }>
+					{ posts.map(post => {
+						const title = post.frontmatter?.title || post.fields?.slug
+
+						return (
+							<li key={ post.fields?.slug }>
+								<article
+									itemScope
+									itemType="http://schema.org/Article"
+								>
+									<header>
+										<h2>
+											{ post.fields?.slug && <Link to={ post.fields.slug } itemProp="url">
+												<span itemProp="headline">{ title }</span>
+											</Link> }
+										</h2>
+										<small>{ post.frontmatter?.date }</small>
+									</header>
+									<section>
+										<p
+											dangerouslySetInnerHTML={ {
+												__html: post.frontmatter?.description || post.excerpt || '',
+											} }
+											itemProp="description"
+										/>
+									</section>
+								</article>
+							</li>
+						)
+					}) }
+				</ol>
+			</Container>
 		</Layout>
 	)
 }
@@ -87,3 +107,5 @@ export const pageQuery = graphql`
     }
   }
 `
+
+export const Head = () => <SEO />

@@ -15,6 +15,7 @@ module.exports = {
 		'gatsby-plugin-image',
 		'gatsby-plugin-netlify-cms',
 		'gatsby-plugin-root-import',
+		'gatsby-plugin-mantine',
 		{
 			resolve: 'gatsby-source-filesystem',
 			options: {
@@ -126,24 +127,11 @@ module.exports = {
 				icon: 'src/images/gatsby-icon.png', // This path is relative to the root of the site.
 			},
 		},
-		{
-			resolve: 'gatsby-plugin-ts',
-			options: {
-				tsLoader: {
-					logLevel: 'warn',
-				},
-				fileName: 'src/types/graphql-types.d.ts',
-				codegen: true,
-				codegenDelay: 250,
-				alwaysCheck: false,
-			}
-		},
-		'gatsby-plugin-react-helmet',
 		// this (optional) plugin enables Progressive Web App + Offline functionality
 		// To learn more, visit: https://gatsby.dev/offline
 		// `gatsby-plugin-offline`,
 	],
 	graphqlTypegen: {
-    typesOutputPath: 'src/types/gatsby-types.d.ts',
-  },
+		typesOutputPath: 'src/@types/gatsby-types.d.ts',
+	},
 }
