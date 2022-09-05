@@ -1,24 +1,25 @@
 module.exports = {
 	siteMetadata: {
-		title: 'Gatsby Starter Blog',
+		title: 'Portfolio for Avram Walden',
 		author: {
-			name: 'Kyle Mathews',
-			summary: 'who lives and works in San Francisco building useful things.',
+			name: 'Avram Walden',
+			summary: 'An aspiring developer',
 		},
-		description: 'A starter blog demonstrating what Gatsby can do.',
-		siteUrl: 'https://gatsbystarterblogsource.gatsbyjs.io/',
+		description: 'Me talking about the things I\'ve built',
+		siteUrl: 'https://www.aviemet.com',
 		social: {
-			twitter: 'kylemathews',
+			twitter: 'aviemet',
 		},
 	},
 	plugins: [
 		'gatsby-plugin-image',
 		'gatsby-plugin-netlify-cms',
+		'gatsby-plugin-root-import',
 		{
 			resolve: 'gatsby-source-filesystem',
 			options: {
-				path: `${__dirname}/content/blog`,
 				name: 'blog',
+				path: `${__dirname}/content/blog`,
 			},
 		},
 		{
@@ -125,9 +126,24 @@ module.exports = {
 				icon: 'src/images/gatsby-icon.png', // This path is relative to the root of the site.
 			},
 		},
+		{
+			resolve: 'gatsby-plugin-ts',
+			options: {
+				tsLoader: {
+					logLevel: 'warn',
+				},
+				fileName: 'src/types/graphql-types.d.ts',
+				codegen: true,
+				codegenDelay: 250,
+				alwaysCheck: false,
+			}
+		},
 		'gatsby-plugin-react-helmet',
 		// this (optional) plugin enables Progressive Web App + Offline functionality
 		// To learn more, visit: https://gatsby.dev/offline
 		// `gatsby-plugin-offline`,
 	],
+	graphqlTypegen: {
+    typesOutputPath: 'src/types/gatsby-types.d.ts',
+  },
 }
