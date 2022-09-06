@@ -1,5 +1,5 @@
 ---
-title: Battery Powered
+title: Battery Powered!
 date: 2022-09-05T21:44:26.996Z
 description: Battery Powered
 image: 75696-w2qg5lxtkff_abftdmec-f3xtekycbbxrps9pnmwzla.jpg
