@@ -1,4 +1,6 @@
-module.exports = {
+import type { GatsbyConfig } from 'gatsby'
+
+const config: GatsbyConfig = {
 	siteMetadata: {
 		title: 'Portfolio for Avram Walden',
 		author: {
@@ -21,6 +23,13 @@ module.exports = {
 			options: {
 				name: 'blog',
 				path: `${__dirname}/content/blog`,
+			},
+		},
+		{
+			resolve: 'gatsby-source-filesystem',
+			options: {
+				name: 'projects',
+				path: `${__dirname}/content/projects`,
 			},
 		},
 		{
@@ -135,3 +144,5 @@ module.exports = {
 		typesOutputPath: 'src/@types/gatsby-types.d.ts',
 	},
 }
+
+export default config

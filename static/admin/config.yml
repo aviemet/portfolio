@@ -11,13 +11,14 @@ collections:
     label: 'Blog'
     folder: 'content/blog'
     create: true
-    slug: 'index'
+    slug: 'blog/{{slug}}'
     media_folder: ''
     public_folder: ''
     path: '{{title}}/index'
     editor:
-      preview: false
+      preview: true
     fields:
+      - { name: 'templateKey', label: 'Template Key', required: true, widget: 'hidden', default: 'blog'}
       - { name: 'title', label: 'Title', widget: 'string' }
       - { name: 'date', label: 'Publish Date', widget: 'datetime' }
       - { name: 'description', label: 'Description', widget: 'string' }
@@ -27,13 +28,14 @@ collections:
     label: 'Project'
     folder: 'content/projects'
     create: true
-    slug: 'index'
+    slug: 'projects/{{slug}}'
     media_folder: ''
     public_folder: ''
     path: '{{title}}/index'
     editor: 
-      preview: false
+      preview: true
     fields:
+      - { name: 'templateKey', label: 'Template Key', required: true, widget: 'hidden', default: 'project'}
       - { name: 'title', label: 'Title', widget: 'string' }
       - { name: 'date', label: 'Publish Date', widget: 'datetime' }
       - { name: 'description', label: 'Description', widget: 'string' }
