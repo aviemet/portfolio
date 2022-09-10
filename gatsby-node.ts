@@ -1,11 +1,15 @@
 import path from 'path'
 import { createFilePath } from 'gatsby-source-filesystem'
+import type { GatsbyNode } from 'gatsby'
 
-export const createPages = async ({ graphql, actions, reporter }) => {
+export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions, reporter }) => {
 	const { createPage } = actions
 
 	// Get all markdown blog posts sorted by date
-	const result = await graphql`
+	const result: {
+		errors?: any
+		data?: Queries.CreatePagesQuery
+	} = await graphql(`
 		query CreatePages {
 			allMarkdownRemark(
 				sort: { fields: [frontmatter___date], order: ASC }
@@ -22,7 +26,7 @@ export const createPages = async ({ graphql, actions, reporter }) => {
 				}
 			}
 		}
-	`
+	`)
 
 	if (result.errors) {
 		reporter.panicOnBuild(
@@ -35,14 +39,14 @@ export const createPages = async ({ graphql, actions, reporter }) => {
 	const blogTemplate = path.resolve('./src/templates/blogPost.tsx')
 	const projectTemplate = path.resolve('./src/templates/projectPost.tsx')
 
-	const posts = result.data.allMarkdownRemark.nodes
+	const posts = result.data?.allMarkdownRemark.nodes || []
 
 	posts.forEach((post, index) => {
 		const previousPostId = index === 0 ? null : posts[index - 1].id
 		const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id
 
 		let template: string
-		switch(post.frontmatter.templateKey) {
+		switch(post.frontmatter?.templateKey) {
 			case 'project':
 				template = projectTemplate
 				break
@@ -52,7 +56,7 @@ export const createPages = async ({ graphql, actions, reporter }) => {
 		}
 
 		createPage({
-			path: post.fields.slug,
+			path: post.fields?.slug || '',
 			component: template,
 			context: {
 				id: post.id,
@@ -63,7 +67,7 @@ export const createPages = async ({ graphql, actions, reporter }) => {
 	})
 }
 
-export const onCreateNode = ({ node, actions, getNode }) => {
+export const onCreateNode: GatsbyNode['onCreateNode'] = ({ node, actions, getNode }) => {
 	const { createNodeField } = actions
 
 	if (node.internal.type === 'MarkdownRemark') {
@@ -77,7 +81,7 @@ export const onCreateNode = ({ node, actions, getNode }) => {
 	}
 }
 
-export const createSchemaCustomization = ({ actions }) => {
+export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = ({ actions }) => {
 	const { createTypes } = actions
 
 	// Explicitly define the siteMetadata {} object

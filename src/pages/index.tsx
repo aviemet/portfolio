@@ -53,14 +53,11 @@ const BlogIndex = ({ data, location }: PageProps<Queries.BlogIndexQuery>) => {
 
 						return (
 							<li key={ post.fields?.slug }>
-								<article
-									itemScope
-									itemType="http://schema.org/Article"
-								>
+								<article>
 									<header>
 										<h2>
-											{ post.fields?.slug && <Link to={ post.fields.slug } itemProp="url">
-												<span itemProp="headline">{ title }</span>
+											{ post.fields?.slug && <Link to={ post.fields.slug }>
+												<span>{ title }</span>
 											</Link> }
 										</h2>
 										<small>{ post.frontmatter?.date }</small>
