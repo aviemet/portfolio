@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Link, graphql, type PageProps } from 'gatsby'
 
-import Layout from 'components/Layout'
+import Layout from 'Layouts'
 import SEO from 'components/SEO'
 
 const NotFoundPage = ({ data, location }: PageProps<Queries.NotFoundPageQuery>) => {

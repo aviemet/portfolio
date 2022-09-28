@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { Link, graphql, type PageProps, type HeadProps } from 'gatsby'
 
+import Layout from 'Layouts'
 import Bio from 'components/Bio'
-import Layout from 'components/Layout'
 import SEO from 'components/SEO'
 
 const ProjectPostTemplate = ({ data, location }: PageProps<Queries.ProjectPostBySlugQuery>) => {

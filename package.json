@@ -26,6 +26,7 @@
     "gatsby": "^4.19.1",
     "gatsby-plugin-gatsby-cloud": "^4.19.0",
     "gatsby-plugin-google-analytics": "^4.19.0",
+    "gatsby-plugin-google-fonts": "^1.0.1",
     "gatsby-plugin-image": "^2.19.0",
     "gatsby-plugin-manifest": "^4.19.0",
     "gatsby-plugin-mantine": "^5.0.0",
@@ -47,7 +48,8 @@
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "typeface-merriweather": "0.0.72",
-    "typeface-montserrat": "0.0.75"
+    "typeface-montserrat": "0.0.75",
+    "unsplash-js": "^7.0.15"
   },
   "devDependencies": {
     "@graphql-eslint/eslint-plugin": "^3.10.7",
