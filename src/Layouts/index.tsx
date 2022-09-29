@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Link } from 'gatsby'
-import { Box, Group, useMantineTheme } from '@mantine/core'
+import { Box, Group } from '@mantine/core'
 import Navbar from './Navbar'
 
 interface LayoutProps {
@@ -10,30 +10,12 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, location, title }: LayoutProps) => {
-	const theme = useMantineTheme()
-	console.log({ theme })
-
 	const rootPath = `${__PATH_PREFIX__}/`
 	const isRootPath = location.pathname === rootPath
-	let header
-
-	if (isRootPath) {
-		header = (
-			<h1 className="main-heading">
-				<Link to="/">{ title }</Link>
-			</h1>
-		)
-	} else {
-		header = (
-			<Link className="header-link-home" to="/">
-				{ title }
-			</Link>
-		)
-	}
 
 	return (
 		<Box data-is-root-path={ isRootPath } sx={ {
-			padding: 24,
+			padding: 16,
 			height: '100%',
 		} }>
 			<Box sx={ theme => ({
@@ -42,7 +24,7 @@ const Layout = ({ children, location, title }: LayoutProps) => {
 				backgroundColor: 'rgba(255, 255, 255, 0.275)',
 				border: '1px solid rgba(255, 255, 255, 0.4)',
 				borderRadius: theme.radius.xl,
-				backdropFilter: 'blur(25px)',
+				backdropFilter: 'blur(50px)',
 				boxShadow: theme.shadows.xl,
 			}) }>
 				<Group noWrap align="stretch" sx={ {
@@ -54,7 +36,6 @@ const Layout = ({ children, location, title }: LayoutProps) => {
 						<Navbar />
 					</Box>
 					<Box>
-						{ /* <header>{ header }</header> */ }
 						<main>{ children }</main>
 					</Box>
 				</Group>

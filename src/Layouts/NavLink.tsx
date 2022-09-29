@@ -1,20 +1,40 @@
-import { Box } from '@mantine/core'
-import React from 'react'
+import React, { useState } from 'react'
+import { ActionIcon, Box, Group } from '@mantine/core'
+import { Link } from 'gatsby'
 
 interface NavLinkProps {
 	children: React.ReactNode
 	href: string
+	icon: React.ReactNode
 }
 
-const NavLink = ({ children, href }: NavLinkProps) => {
+const NavLink = ({ children, href, icon }: NavLinkProps) => {
+	const [wrapperClassname, setWrapperClassname] = useState('')
+
+	const isActive = ({ isCurrent }: { isCurrent: boolean }) => {
+		if(isCurrent) {
+			setWrapperClassname('active')
+			return { className: 'active' }
+		}
+		return {}
+	}
+
 	return (
-		<Box sx={ theme => ({
+		<Box className={ wrapperClassname } sx={ theme => ({
 			width: '100%',
-			background: 'rgba(255, 255, 255, 0.3)',
 			borderRadius: theme.radius.md,
-			padding: '8px 16px',
+			padding: '8px 8px',
+
+			'&.active': {
+				background: 'rgba(255, 255, 255, 0.3)',
+			},
 		}) }>
-			<a href={ href }>{ children }</a>
+			<Link to={ href } getProps={ isActive }>
+				<Group spacing="xs">
+					<ActionIcon size="xl" variant="transparent">{ icon }</ActionIcon>
+					{ children }
+				</Group>
+			</Link>
 		</Box>
 	)
 }
