@@ -1,20 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { MantineProvider, Global } from '@mantine/core'
-import bgImage from '../../images/bg1.jpg'
+import { useMouse } from '@mantine/hooks'
+import bgImage from '../../images/bg2.jpg'
 
-// import unsplash from 'apis/unsplash'
-
-// unsplash.photos.getRandom({
-// 	collectionIds: ['1078231'],
-// 	orientation: 'landscape',
-// 	contentFilter: 'high'
-// }).then(res => {
-// 	console.log({ res })
-// })
-
-
-const useTheme = (colorScheme: 'light'|'dark' = 'light') => ({
-	colorScheme,
+const useTheme = () => ({
 	fontFamily: 'Valera Round, Roboto, sans-serif',
 	fontFamilyMonospace: 'Monaco, Courier, monospace',
 	primaryColor: 'violet',
@@ -28,7 +17,6 @@ const useTheme = (colorScheme: 'light'|'dark' = 'light') => ({
 		xl: '0px 7px 8px -4px rgba(0,0,0,0.2),0px 12px 17px 2px rgba(0,0,0,0.14),0px 5px 22px 4px rgba(0,0,0,0.12)',
 	},
 	other: {
-		colorSchemeOption: (light: any, dark: any) => colorScheme === 'dark' ? dark : light,
 		navbar: {
 			width: '12rem',
 		},
@@ -38,10 +26,22 @@ const useTheme = (colorScheme: 'light'|'dark' = 'light') => ({
 export { useTheme }
 
 const Mantine: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-	const [colorScheme, setColorScheme] = useState<'light'|'dark'>('dark')
+	const { x, y } = useMouse()
+	const bodyRef = useRef<HTMLElement>(document.body)
+
+	useEffect(() => {
+		const constrainX = 40
+		const constrainY = 40
+		const box = bodyRef.current.getBoundingClientRect()
+		const calcX = (y - box.y - (box.height / 2)) / constrainX
+		const calcY = (x - box.x - (box.width / 2)) / constrainY
+
+		const style = `calc(50% + ${calcX}px) calc(50% + ${calcY}px)`
+		bodyRef.current.style.backgroundPosition = style
+	}, [x, y])
 
 	return (
-		<MantineProvider withGlobalStyles withNormalizeCSS theme={ useTheme(colorScheme) }>
+		<MantineProvider withGlobalStyles withNormalizeCSS theme={ useTheme() }>
 			<Global styles={ theme => ({
 				'html, body': {
 					height: '100vh',
@@ -49,12 +49,12 @@ const Mantine: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 				},
 
 				'body': {
-					color: colorScheme === 'dark' ? theme.white : theme.black,
-					// background: theme.fn.linearGradient(150, theme.colors.indigo[9], theme.colors.blue[9], theme.colors.blue[6]),
+					color: theme.white,
 					backgroundImage: `url("${bgImage}")`,
 					backgroundRepeat: 'no-repeat',
-					backgroundSize: 'cover',
+					backgroundSize: '150% 150%',
 					backgroundAttachment: 'fixed',
+					backgroundPosition: '50% 50%'
 				},
 
 				'*::selection': {

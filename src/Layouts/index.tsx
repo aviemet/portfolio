@@ -1,6 +1,5 @@
 import * as React from 'react'
-import { Link } from 'gatsby'
-import { Box, Group } from '@mantine/core'
+import { Box, Container, Group } from '@mantine/core'
 import Navbar from './Navbar'
 
 interface LayoutProps {
@@ -18,7 +17,7 @@ const Layout = ({ children, location, title }: LayoutProps) => {
 			padding: 16,
 			height: '100%',
 		} }>
-			<Box sx={ theme => ({
+			<Box component={ Container } size="xl" sx={ theme => ({
 				padding: 24,
 				height: '100%',
 				backgroundColor: 'rgba(255, 255, 255, 0.275)',

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Link, graphql, type PageProps } from 'gatsby'
-import { Box, Transition, Title, Container } from '@mantine/core'
+import { Box, Title, Container } from '@mantine/core'
 
 import Layout from 'Layouts'
 import SEO from 'components/SEO'
@@ -36,7 +36,7 @@ const BlogIndex = ({ data, location }: PageProps<Queries.BlogIndexQuery>) => {
 					<Title order={ 3 } size="h4">These my recent blog posts:</Title>
 					{ posts.map(post => {
 						return (
-							<ProjectTile key={ post.fields?.slug } post={ post } />
+							<BlogTile key={ post.fields?.slug } post={ post } />
 						)
 					}) }
 				</section>
